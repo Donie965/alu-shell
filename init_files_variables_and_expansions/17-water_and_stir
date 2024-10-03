@@ -1,2 +1,54 @@
 #!/bin/bash
-printf "%o\n" $(($((5#$(echo $WATER | tr water 01234))) + $((5#$(echo $STIR | tr stir. 01234))))) | tr 01234567 bestchol`
+
+# Define the bases
+BASE_WATER="ewwatratewa"  # Base water characters
+BASE_STIR="ti.itirtrtr"    # Base stir characters
+BASE_BESTCHOL="bestchol"   # Base bestchol characters
+
+# Function to convert from a given base to decimal
+convert_to_decimal() {
+    local number=$1
+    local base=$2
+    local decimal_value=0
+    local length=${#number}
+
+    for (( i=0; i<length; i++ )); do
+        char="${number:i:1}"
+        index=$(expr index "$base" "$char")  # Get the index of the character in the base string
+        if [ $index -eq 0 ]; then
+            echo "Error: Invalid character '$char' in number '$number'"
+            exit 1
+        fi
+        decimal_value=$((decimal_value * ${#base} + index - 1))  # Convert to decimal
+    done
+
+    echo $decimal_value
+}
+
+# Function to convert from decimal to a given base
+convert_from_decimal() {
+    local decimal=$1
+    local base=$2
+    local result=""
+
+    while [ $decimal -gt 0 ]; do
+        remainder=$((decimal % ${#base}))
+        result="${base:$remainder:1}$result"
+        decimal=$((decimal / ${#base}))
+    done
+
+    echo "$result"
+}
+
+# Convert WATER and STIR to decimal
+water_decimal=$(convert_to_decimal "$WATER" "$BASE_WATER")
+stir_decimal=$(convert_to_decimal "$STIR" "$BASE_STIR")
+
+# Add the two decimal values
+sum_decimal=$((water_decimal + stir_decimal))
+
+# Convert the sum back to BASE_BESTCHOL
+result=$(convert_from_decimal "$sum_decimal" "$BASE_BESTCHOL")
+
+# Print the result
+echo "$result"
