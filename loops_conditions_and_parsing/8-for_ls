@@ -1,12 +1,15 @@
-#!/usr/bin/env bash
-# This script displays the content of the current directory in a list format,
 # showing only the part of the name after the first dash.
 
-for file in $(ls -p | grep -v / | grep -v '^\.' ); do
-  # Extract the part of the filename after the first dash (-)
-  name_after_dash="${file#*-}"
-  
-  # Print the result
-  echo "$name_after_dash"
+# Iterate over all files in the current directory (excluding directories and hidden files)
+for file in *; do
+  # Skip directories
+  if [[ -f "$file" ]]; then
+    # Extract the part of the filename after the first dash
+    name_after_dash="${file#*-}"
+    
+    # Print the result if there's something after the dash
+    if [[ "$name_after_dash" != "$file" ]]; then
+      echo "$name_after_dash"
+    fi
+  fi
 done
-
