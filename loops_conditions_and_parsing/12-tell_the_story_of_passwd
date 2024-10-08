@@ -1,8 +1,15 @@
-#!/usr/bin/env bash
-# This script tells a story based on the contents of the /etc/passwd file.
+#!/bin/bash
+# This script tells the story of users listed in /etc/passwd
 
-# Read each line of /etc/passwd
-while IFS=: read -r username _ group_id _ _ home shell; do
-  # Ensure correct formatting by stripping unnecessary fields and printing concise output.
-  echo "The user $username is part of the $group_id gang, lives in $home and rides $shell. $group_id's place is protected by the passcode x, more info about the user here: $username"
+# Read each line from /etc/passwd
+while IFS=: read -r username _ group_id _ _ home shell info; do
+  # Handle missing shell or home directory
+  shell=${shell:-/bin/bash}
+  home=${home:-/home/$username}
+
+  # If 'info' is missing, set it to "No additional info"
+  info=${info:-"No additional info"}
+
+  # Print the story of each user
+  echo "The user $username is part of the $group_id gang, lives in $home and rides $shell. $group_id's place is protected by the passcode x, more info about the user here: $info"
 done < /etc/passwd
