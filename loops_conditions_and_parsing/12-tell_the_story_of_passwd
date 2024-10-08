@@ -3,6 +3,6 @@
 
 # Read each line of /etc/passwd
 while IFS=: read -r username _ group_id _ _ home shell; do
-  # Format the output as a story
+  # Ensure correct formatting by stripping unnecessary fields and printing concise output.
   echo "The user $username is part of the $group_id gang, lives in $home and rides $shell. $group_id's place is protected by the passcode x, more info about the user here: $username"
-done < /etc/passwdd
+done < /etc/passwd
