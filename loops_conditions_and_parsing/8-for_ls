@@ -2,16 +2,22 @@
 # This script displays the content of the current directory in a list format,
 # showing only the part of the name after the first dash.
 
-# Iterate over all files in the current directory (excluding directories and hidden files)
+# Iterate over all files and directories in the current directory
 for file in *; do
-  # Skip directories
+  # Check if it's a regular file (not a directory or hidden file)
   if [[ -f "$file" ]]; then
-    # Extract the part of the filename after the first dash
+    # Extract the part of the filename after the first dash, if present
     name_after_dash="${file#*-}"
     
-    # Print the result if there's something after the dash
+    # If the filename contains a dash, print the part after the dash
     if [[ "$name_after_dash" != "$file" ]]; then
       echo "$name_after_dash"
+    else
+      # If there is no dash, print the full filename
+      echo "$file"
     fi
+  else
+    # If it's not a regular file, print the directory (or folder)
+    echo "$file"
   fi
 done
