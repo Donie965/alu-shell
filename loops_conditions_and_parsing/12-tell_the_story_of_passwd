@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script tells the story of users listed in /etc/passwd
 
 # Read each line from /etc/passwd
