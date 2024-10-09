@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+#!/bin/bash
+
+# Path to the PID file
+PID_FILE="/var/run/myscript.pid"
+
+# Write the script's PID to the PID file
+echo $$ > "$PID_FILE"
+
+# Function to handle cleanup when the script exits
+cleanup() {
+    rm -f "$PID_FILE"
+    echo "PID file deleted. Exiting..."
+    exit 0
+}
+
+# Trap signals
+trap 'echo "I hate the kill command"; cleanup' SIGTERM
+trap 'echo "Y U no love me?!";' SIGINT
+trap 'cleanup' SIGQUIT
+
+# Infinite loop to display "To infinity and beyond"
+while true; do
+    echo "To infinity and beyond"
+    sleep 1
+done
