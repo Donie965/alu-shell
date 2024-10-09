@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 #!/bin/bash
 
-# Use pgrep to find the PID of the 7-highlander process
-pid=$(pgrep -f '[7]-highlander')
+# This script kills the process named "7-highlander"
 
-# If the PID is found, send SIGKILL to terminate the process
-if [[ -n "$pid" ]]; then
-	# Kill the process with SIGKILL (force termination)
-    kill -9 "$pid"
-    echo "OK"
+# Get the PID of the process
+pid=$(pgrep 7-highlander)
+
+# Check if the PID was found
+if [ -n "$pid" ]; then
+    kill "$pid"  # Kill the process
+    echo "Killed process 7-highlander with PID: $pid"
+else
+    echo "No process named '7-highlander' found."
 fi
