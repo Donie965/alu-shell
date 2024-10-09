@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/bin/bash
 
 # Disable SC2009 warning
 # shellcheck disable=SC2009
