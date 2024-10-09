@@ -7,5 +7,5 @@ pid=$(pgrep -f '[7]-highlander')
 # If the PID is found, send SIGKILL to terminate the process
 if [[ -n "$pid" ]]; then
     kill -9 "$pid"
-    echo "Killed"
+    echo "OK"
 fi
