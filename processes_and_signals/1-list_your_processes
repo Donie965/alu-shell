@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Display all processes with a user-oriented format and process hierarchy
+ps aux --forest
