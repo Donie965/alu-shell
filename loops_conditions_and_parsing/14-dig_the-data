@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# File path of the Apache access log
+log_file="apache-access.log"
+
+# Extract IP and HTTP status code, then count occurrences, and sort by occurrences
+awk '{print $1, $9}' "$log_file" | sort | uniq -c | sort -nr | awk '{printf "%6d %s %s\n", $1, $2, $3}'
