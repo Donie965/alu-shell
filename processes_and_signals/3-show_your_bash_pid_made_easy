@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#!/bin/bash
+
+# Loop through the /proc directory and look for PIDs
+for pid in /proc/[0-9]*; do
+    # Extract the PID number from the directory name
+    pid_number=$(basename "$pid")
+
+    # Check if the process has a valid comm file
+    if [[ -f "$pid/comm" ]]; then
+        # Get the process name
+        process_name=$(cat "$pid/comm")
+
+        # Check if the process name contains "bash"
+        if [[ "$process_name" == *bash* ]]; then
+            echo "$pid_number $process_name"
+        fi
+    fi
+done
