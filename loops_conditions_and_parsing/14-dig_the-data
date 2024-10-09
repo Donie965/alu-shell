@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# File path of the Apache access log
-
 # Path to the Apache log file
 log_file="apache-access.log"
 
