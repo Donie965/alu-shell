@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#!/bin/bash
+
+# Path to the PID file
+PID_FILE="/var/run/my_process.pid"
+OUTPUT_FILE="/tmp/my_process"
+
+# Function to handle cleanup when the script exits
+cleanup() {
+    rm -f "$PID_FILE"
+    echo "PID file deleted. Exiting..."
+    exit 0
+}
+
+# Trap SIGTERM for graceful shutdown
+trap 'echo "Stopping..."; cleanup' SIGTERM
+
+# Write the script's PID to the PID file
+echo $$ > "$PID_FILE"
+
+# Main loop to write "I am alive!" to /tmp/my_process indefinitely
+while true; do
+    echo "I am alive!" >> "$OUTPUT_FILE"
+    sleep 2
+done
