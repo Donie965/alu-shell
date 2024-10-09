@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#!/bin/bash
+
+# Find the PID of the 4-to_infinity_and_beyond process
+pid=$(ps aux | grep '[4]-to_infinity_and_beyond' | awk '{print $2}')
+
+# If the process is found, stop it
+if [[ -n "$pid" ]]; then
+    # Send a SIGSTOP signal to stop the process (suspends the process)
+    kill -SIGSTOP "$pid"
+    # Then send a SIGINT signal to terminate the process
+    kill -SIGINT "$pid"
+fi
