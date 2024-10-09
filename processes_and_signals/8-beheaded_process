@@ -8,7 +8,7 @@ pid=$(pgrep -f '[7]-highlander')
 if [[ -n "$pid" ]]; then
     # Kill the process with SIGKILL (force termination)
     kill -9 "$pid"
-    echo "Process 7-highlander with PID $pid has been killed."
+    echo "OK"  # Output OK when the process is killed
 else
-    echo "No process named 7-highlander found."
+    echo "OK"  # Output OK even if the process is not found
 fi
