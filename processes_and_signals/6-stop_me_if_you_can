@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#!/bin/bash
 
 # Disable SC2009 warning
 # shellcheck disable=SC2009
@@ -6,8 +7,7 @@
 # Find the PID of the 4-to_infinity_and_beyond process by using a unique identifier
 pid=$(ps aux | grep '[4]-to_infinity_and_beyond' | awk '{print $2}')
 
-# If the process is found, stop it
+# If the PID is found, send SIGTERM to terminate the process
 if [[ -n "$pid" ]]; then
-    # Send a SIGINT signal to terminate the process
-    kill -SIGINT "$pid"
+        kill -SIGTERM "$pid"
 fi
