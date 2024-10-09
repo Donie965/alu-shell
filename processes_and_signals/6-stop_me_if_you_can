@@ -5,7 +5,7 @@
 # shellcheck disable=SC2009
 
 # Find the PID of the 4-to_infinity_and_beyond process
-pid=$(ps aux | grep '[4]-to_infinity_and_beyond' | awk '{print $2}')
+pid=$(ps aux | grep '[4]-to_infinity_and_beyond' | grep -v 'grep' | awk '{print $2}')
 
 # If the process is found, stop it
 if [[ -n "$pid" ]]; then
