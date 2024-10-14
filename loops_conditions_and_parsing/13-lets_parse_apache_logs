@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+# Check if the log file exists
 
-# File path of the Apache access log
 log_file="apache-access.log"
-
-# Use awk to extract the IP (1st field) and HTTP status code (9th field)
-awk '{print $1, $9}' "$log_file"
+if [ -e "$log_file" ]; then
+    
+    awk '{print $1, $9}' "$log_file"
+else
+    echo "The log file $log_file does not exist."
+fi
