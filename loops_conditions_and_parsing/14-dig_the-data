@@ -1,18 +1,3 @@
 #!/usr/bin/env bash
-
-#!/bin/bash
-
-# Check if the file exists
-LOG_FILE="access.log"  # Modify if your log file is named differently
-if [ ! -f "$LOG_FILE" ]; then
-  echo "Log file $LOG_FILE not found!"
-  exit 1
-fi
-
-# Parse the log file using awk
-# - `$1` is the IP address
-# - `$9` is the HTTP status code
-# The array `arr` stores the occurrences of each IP and HTTP code combination
-# `arr[$1,$9]++` increments the count for the combination of IP and status code.
-# At the end of processing, print the counts along with the IP and status code.
-awk '{arr[$1,$9]++} END {for (key in arr) print arr[key], substr(key, 1, index(key, ",")-1), substr(key, index(key, ",")+1)}' $LOG_FILE | sort -nr
+#apache codes
+awk '{print $1,$9}' apache-access.log | sort -V | uniq -c | sort -n | perl -e 'print reverse <>'
