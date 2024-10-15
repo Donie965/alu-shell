@@ -2,8 +2,8 @@
 # manage_my_process script
 
                                                   
-start () {                                         
-    ./manage_my_process &                          
+start () {                                        
+                           
     echo $! > /var/run/my_process.pid              
     echo "manage_my_process started"               
 }                                                  
