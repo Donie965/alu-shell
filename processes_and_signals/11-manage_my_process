@@ -30,6 +30,7 @@ stop() {
     # Kill the process
     kill "$PID"
     rm "$PID_FILE"  # Remove the PID file
+    echo "Good"  # Print "Good" when the process is stopped
     echo "manage_my_process stopped"
 }
 
@@ -47,4 +48,4 @@ case "$1" in
     restart) restart ;;
     *)
         echo "Usage: manage_my_process {start|stop|restart}" ;;
-esac
+esac 
