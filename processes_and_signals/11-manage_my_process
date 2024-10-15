@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#!/bin/bash
+
 # manage_my_process script
 
                                                   
@@ -11,7 +13,7 @@ start () {
 stop () {                                          
     pkill -f "./manage_my_process"                 
     rm /var/run/my_process.pid                     
-    echo "manage_my_process stopped"               
+    echo "Good"               
 }                                                  
                                                    
 restart () {                                       
