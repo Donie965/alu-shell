@@ -5,28 +5,37 @@
 
                                                   
 start () {                                                                  
-    echo $! > /var/run/my_process.pid              
+    # Start the process in the background
+    ./manage_my_process &
+    PROCESS_ID=$!               # Store the PID of the background process
+    echo $PROCESS_ID > /var/run/my_process.pid
     echo "manage_my_process started"               
 }                                                  
                                                    
-stop () {                                          
-    pkill -f "./manage_my_process"                 
-    rm /var/run/my_process.pid                     
-    echo "manage_my_process stopped"               
+stop () {                      
+# Check if the PID file exists
+    if [ -f /var/run/my_process.pid ]; then
+        pkill -f "./manage_my_process"  # Stop the process using pkill
+        rm /var/run/my_process.pid       # Remove the PID file
+        echo "Good"  # Print "Good" to indicate successful stop
+    else
+        echo "PID file not found"  # Debugging message if the PID file is missing
+    fi
 }                                                  
                                                    
 restart () {                                       
-    pkill -f "./manage_my_process"                 
-    rm /var/run/my_process.pid                     
-    ./manage_my_process &                          
-    echo $! >> /var/run/my_process.pid             
+    # Stop and restart the process
+    pkill -f "./manage_my_process"
+    rm -f /var/run/my_process.pid
+    ./manage_my_process &
+    PROCESS_ID=$!
+    echo $PROCESS_ID > /var/run/my_process.pid
     echo "manage_my_process restarted"             
 }
+ # case handling for script arguments
 case "$1" in                                       
    start) start ;;                                 
-   stop)  stop;;                                   
-   restart) restart;;                              
-   *) echo "Usage: manage_my_process {start|stop|restart}"                                           
-                                                   
-      ;;                                           
+   stop)  stop ;;                                   
+   restart) restart ;;                              
+   *) echo "Usage: manage_my_process {start|stop|restart}" ;;                                           
 esac  
