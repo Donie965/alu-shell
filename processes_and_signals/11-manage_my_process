@@ -4,31 +4,22 @@
 # manage_my_process script
 
                                                   
-start () {                                        
-                           
-     ./manage_my_process &
-    PROCESS_ID=$!
-    echo $PROCESS_ID > /var/run/my_process.pid
+start () {                                                                  
+    echo $! > /var/run/my_process.pid              
     echo "manage_my_process started"               
 }                                                  
                                                    
-stop (){	
-if [ -f /var/run/my_process.pid ]; then
-        pkill -f "./manage_my_process"
-        rm /var/run/my_process.pid
-        echo "Good"  # Print "Good" when the PID file is deleted
-        echo "manage_my_process stopped"
-    else
-        echo "PID file not found"
-    fi
+stop () {                                          
+    pkill -f "./manage_my_process"                 
+    rm /var/run/my_process.pid                     
+    echo "manage_my_process stopped"               
 }                                                  
                                                    
 restart () {                                       
-     pkill -f "./manage_my_process"
-    rm -f /var/run/my_process.pid
-    ./manage_my_process &
-    PROCESS_ID=$!               # Store the new PID of the background process
-    echo $PROCESS_ID > /var/run/my_process.pid
+    pkill -f "./manage_my_process"                 
+    rm /var/run/my_process.pid                     
+    ./manage_my_process &                          
+    echo $! >> /var/run/my_process.pid             
     echo "manage_my_process restarted"             
 }
 case "$1" in                                       
@@ -38,4 +29,4 @@ case "$1" in
    *) echo "Usage: manage_my_process {start|stop|restart}"                                           
                                                    
       ;;                                           
-esac
+esac  
