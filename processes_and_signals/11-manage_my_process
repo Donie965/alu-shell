@@ -10,17 +10,7 @@ start () {
     echo "manage_my_process started"               
 }                                                  
                                                    
-stop () { 
-if [ -e "$PID_FILE" ]; then
-        # Get the PID from the PID file
-        PID=$(cat "$PID_FILE")
-        # Terminate the process
-        kill -TERM "$PID"
-        # Wait for the process to exit
-        while kill -0 "$PID" 2>/dev/null; do
-            sleep 1
-        done
-#remove process logic	
+stop (){	
     pkill -f "./manage_my_process"                 
     rm /var/run/my_process.pid                     
     echo "manage_my_process stopped"               
@@ -41,4 +31,4 @@ case "$1" in
 estart}"                                           
                                                    
       ;;                                           
-esac 
+esac
